@@ -1,0 +1,63 @@
+Table Students {
+  student_id int [primary key]
+  first_name varchar(50)
+  created_at timestamp 
+  last_name varchar(50)
+  email varchar(100)
+  phone_number varchar(15)
+  date_of_birth date
+  address varchar(255)
+  guardian_name  varchar(100)
+  guardian_contact varchar(15)
+
+}
+
+Table Instructors {
+  instructor_id int [primary KEY]
+ first_name varchar(50)
+  last_name varchar(50)
+  email varchar(100)
+  phone_number varchar(15)
+}
+
+Table Courses {
+  course_id int [primary KEY]
+  course_name varchar(100)
+  description text
+  start_date date
+  end_date date
+  instructor_id int
+}
+
+Table Enrollments {
+  enrollment_id int  [primary KEY]
+  student_id int
+  course_id int
+  enrollment_date date
+}
+
+ Table ClassSchedule {
+  schedule_id int  [primary KEY]
+  course_id int
+  day_of_week varchar(15)
+  start_time time
+  end_time time
+  room_location varchar(100)
+}
+
+Table Payments {
+  payment_id int [primary KEY]
+  student_id int
+  course_id int
+  payment_date date
+  amount decimal(10, 2)
+  payment_method varchar(50)
+}
+ 
+Ref: Instructors.instructor_id> Students.student_id
+Ref: Payments.student_id> Students.student_id
+Ref: Payments.payment_method> ClassSchedule.course_id
+Ref: Payments.course_id> Courses.course_id
+Ref: Courses.instructor_id> Instructors.instructor_id
+Ref: Enrollments.course_id> Courses.course_name
+Ref: Courses.course_name> Enrollments.student_id
